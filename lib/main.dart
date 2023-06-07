@@ -1,59 +1,105 @@
 import 'package:flutter/material.dart';
 
+
 void main() {
-  runApp(const MaterialApp(
-    home: Homepage(),
-  ));
+  runApp(MyApp());
 }
 
-class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Form(),
+    );
+  }
+}
+
+class Form extends StatefulWidget {
+  const Form({Key? key}) : super(key: key);
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  _FormState createState() => _FormState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _FormState extends State<Form> {
+  TextEditingController _name = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _phone = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('homepage'),
-      ),
       body: Center(
-        child: ElevatedButton(onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => Secondpage());
-          Navigator.push(context, route);
-        }, child: Text('secondhome'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _name,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Name'
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _email,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Email'
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _phone,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Phone No'
+                ),
+              ),
+            ),
+            ElevatedButton(onPressed: (){
 
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WelcomePage(name: _name.text, email: _email.text, phone: _phone.text)));
+
+            }, child: Text('Go Next Page'))
+          ],
         ),
       ),
     );
   }
 }
 
-
-class Secondpage extends StatelessWidget {
-  const Secondpage({Key? key}) : super(key: key);
-  user ? user;
-
+class WelcomePage extends StatelessWidget {
+  String name,email,phone;
+  WelcomePage({Key? key,required this.name,required this.email,required this.phone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-RouteSettings ? settings = ModalRoute.of(context)?.settings;
-user = settings?.arguments as User?;
     return Scaffold(
       appBar: AppBar(
-        title: Text('homepage'),
+        title: Text('Demo'),
       ),
       body: Center(
-        child: ElevatedButton(onPressed: () {
-          Navigator.pop(context);
-        },
-          child: Text('welcome to my secondhome'),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Name: $name'),
+              Text('Email: $email'),
+              Text('Phone: $phone'),
+            ],
+          ),
         ),
       ),
     );
   }
-}
-
-
+}fghjklgh
